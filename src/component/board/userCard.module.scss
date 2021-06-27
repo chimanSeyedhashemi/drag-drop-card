@@ -1,0 +1,30 @@
+.userCard {
+  align-self: stretch;
+  background-color: rgb(39, 39, 39);
+  padding: 1rem;
+  margin: 0.2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.board {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: start;
+  flex-wrap: wrap;
+  width: 100%;
+  height: 100%;
+  padding: 2rem;
+}
+
+.removeBtn {
+  border-radius: 50%;
+  width: 35px;
+  background-color: black;
+  border: none;
+  height: 35px;
+  padding: 0.2rem;
+}
