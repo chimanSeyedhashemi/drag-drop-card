@@ -1,7 +1,7 @@
 import { Board } from "../board";
 import { Footer } from "../footer";
 import { Header } from "../header";
-import style from "./App.module.scss";
+import style from "./app.module.scss";
 
 interface IProps {}
 
