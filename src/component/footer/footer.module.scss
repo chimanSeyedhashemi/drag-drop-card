@@ -9,4 +9,18 @@
   height: 10%;
   text-align: center;
   padding: 1rem;
+  .addBtn {
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    background-color: #17a2b8;
+    border: none;
+    font-size: 1rem;
+    font-weight: bold;
+    color: white;
+    padding: 0.2rem;
+  }
+  .addBtn:disabled {
+    background: #dddddd !important;
+  }
 }
