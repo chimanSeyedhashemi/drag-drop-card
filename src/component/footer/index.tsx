@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { IUser } from "../../model/user";
@@ -15,14 +15,19 @@ interface IProps {
 
 const FooterComponent = (props: IProps) => {
   const [disabled, setDisabled] = useState<boolean>(false);
+  useEffect(() => {
+    const userCount = props.users.length;
+    if (userCount > 11) {
+      setDisabled(true);
+    } else {
+      setDisabled(false);
+    }
+  }, [props.users]);
 
   const handleAddUser = () => {
     const newUsers = [...props.users];
     const userCount = props.users.length;
-    if (userCount > 11) {
-      setDisabled(true);
-      return;
-    }
+
     newUsers.push({ title: `user${userCount + 1}`, id: uuid() });
     props.addUser(newUsers);
   };
