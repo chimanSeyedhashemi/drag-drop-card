@@ -1,6 +1,5 @@
-import userEvent from "@testing-library/user-event";
-import { DetailedHTMLProps, HTMLAttributes, useEffect, useRef } from "react";
-import { connect, useDispatch, useSelector } from "react-redux";
+import React, { DragEvent, useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { IUser } from "../../model/user";
 import { actionArrngeUsers, actionRemoveUsers } from "../../redux/action/users";
 import { IReduxState } from "../../redux/appState";
@@ -11,7 +10,20 @@ interface IProps {
   user: IUser;
 }
 
-const setWidth = (count: number) => {
+/**
+ * setWidth function get the number of cards and return the width of cards
+ *
+ * @remarks
+ * This method is part of the {@link core-library#front_end_chalenge | Front_end subsystem}.
+ *
+ * @param - first input get the number of cards
+ *
+ * @return - return the width of card in string
+ *
+ * @beta
+ */
+
+const setWidth = (count: number): string => {
   switch (count) {
     case 1:
       return "99%";
@@ -35,12 +47,34 @@ const setWidth = (count: number) => {
 };
 
 export const UserCard = (props: IProps) => {
+  const cardRef = useRef<HTMLDivElement | null>(null);
   const users: Array<IUser> = useSelector((state: IReduxState) => state.users);
   const dispatch = useDispatch();
+
+  /**
+   * this useefect set the card width based on change in users
+   *
+   * @remarks
+   * This method is part of the {@link core-library#front_end_chalenge | Front_end subsystem}.
+   *
+   * @beta
+   */
+
   useEffect(() => {
     cardRef.current!.style.width = setWidth(users.length);
   }, [users]);
-  const handleRemoveUser = () => {
+
+  /**
+   * handleRemoveUser function remove user from the users list
+   *
+   * @remarks
+   * This method is part of the {@link core-library#front_end_chalenge | Front_end subsystem}.
+   *
+   *
+   * @beta
+   */
+
+  const handleRemoveUser = (): void => {
     const newUsers: Array<IUser> = users.filter(
       (user) => user.id !== props.user.id
     );
@@ -48,27 +82,56 @@ export const UserCard = (props: IProps) => {
     dispatch(actionRemoveUsers(newUsers));
     cardRef.current!.style.width = setWidth(newUsers.length);
   };
-  const cardRef = useRef<HTMLDivElement | null>(null);
 
-  const handleDrop = (ev: any) => {
+  /**
+   * handleDrop function change the cards location based on drag and drops
+   *
+   * @remarks
+   * This method is part of the {@link core-library#front_end_chalenge | Front_end subsystem}.
+   *
+   *
+   * @beta
+   */
+
+  const handleDrop = (ev: DragEvent<HTMLDivElement>) => {
     ev.preventDefault();
 
-    const from = ev.dataTransfer.getData("text");
-    const to = ev.target.id;
+    const from: string = ev.dataTransfer.getData("text");
+    const to: string = (ev as any).target.id;
     if (!from || !to) return;
-    const newUsers = [...users];
-    const fromIndex = newUsers.findIndex((user) => user?.id === from);
-    const toIndex = newUsers.findIndex((user) => user?.id === to);
+    const newUsers: Array<IUser> = [...users];
+    const fromIndex: number = newUsers.findIndex((user) => user?.id === from);
+    const toIndex: number = newUsers.findIndex((user) => user?.id === to);
     newUsers[fromIndex] = users[toIndex];
     newUsers[toIndex] = users[fromIndex];
 
     dispatch(actionArrngeUsers(newUsers));
   };
-  const ondragover = (ev: any) => {
+
+  /**
+   * ondragover function preventDefult when droping occure
+   *
+   * @remarks
+   * This method is part of the {@link core-library#front_end_chalenge | Front_end subsystem}.
+   *
+   *
+   * @beta
+   */
+  const ondragover = (ev: DragEvent<HTMLDivElement>) => {
     ev.preventDefault();
   };
-  const ondragstart = (ev: any) => {
-    ev.dataTransfer!.setData("text", ev.target!.id);
+
+  /**
+   * ondragstart function set the drop card id
+   *
+   * @remarks
+   * This method is part of the {@link core-library#front_end_chalenge | Front_end subsystem}.
+   *
+   *
+   * @beta
+   */
+  const ondragstart = (ev: DragEvent<HTMLDivElement>) => {
+    ev.dataTransfer!.setData("text", (ev as any).target!.id);
   };
 
   return (

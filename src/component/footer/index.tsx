@@ -13,10 +13,34 @@ interface IProps {
   addUser: (users: Array<IUser>) => void;
 }
 
+/**
+ * App Component return the footer
+ *
+ * @remarks
+ * This method is part of the {@link core-library#front_end_chalenge | Front_end subsystem}.
+ *
+ *
+ * @param props - The props of component include users and add user action from the redux
+ *
+ * @beta
+ */
+
 const FooterComponent = (props: IProps) => {
   const [disabled, setDisabled] = useState<boolean>(false);
+
+  /**
+   * this useeffect handle the disabled for add button
+   *
+   * @remarks
+   * This method is part of the {@link core-library#front_end_chalenge | Front_end subsystem}.
+   *
+   *
+   *
+   * @beta
+   */
+
   useEffect(() => {
-    const userCount = props.users.length;
+    const userCount: number = props.users.length;
     if (userCount > 11) {
       setDisabled(true);
     } else {
@@ -24,13 +48,25 @@ const FooterComponent = (props: IProps) => {
     }
   }, [props.users]);
 
+  /**
+   * handleAddUser function add new user to the users list
+   *
+   * @remarks
+   * This method is part of the {@link core-library#front_end_chalenge | Front_end subsystem}.
+   *
+   *
+   *
+   * @beta
+   */
+
   const handleAddUser = () => {
-    const newUsers = [...props.users];
-    const userCount = props.users.length;
+    const newUsers: Array<IUser> = [...props.users];
+    const userCount: number = props.users.length;
 
     newUsers.push({ title: `user${userCount + 1}`, id: uuid() });
     props.addUser(newUsers);
   };
+
   return (
     <div className={style.footerWrapper}>
       <AppButton
