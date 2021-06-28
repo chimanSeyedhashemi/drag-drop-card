@@ -146,7 +146,11 @@ export const UserCard = (props: IProps) => {
         onDragStart={ondragstart}
         // onDrag={handleDrag}
       >
-        <AppButton className={style.removeBtn} onClick={handleRemoveUser}>
+        <AppButton
+          className={style.removeBtn}
+          data-testid="remove"
+          onClick={handleRemoveUser}
+        >
           <img src="/trash.svg" />
         </AppButton>
 
