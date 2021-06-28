@@ -70,6 +70,7 @@ const FooterComponent = (props: IProps) => {
   return (
     <div className={style.footerWrapper}>
       <AppButton
+        data-testid="add"
         className={style.addBtn}
         onClick={handleAddUser}
         disabled={disabled}
