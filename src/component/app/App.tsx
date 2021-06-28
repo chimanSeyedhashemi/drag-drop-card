@@ -1,6 +1,5 @@
 import React from "react";
 import { Board } from "../board";
-
 import { Footer } from "../footer";
 import { Header } from "../header";
 import style from "./app.module.scss";
